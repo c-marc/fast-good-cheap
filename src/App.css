@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  height: 100svh;
+  width: 100svw;
+  max-width: 800px;
+  margin: 200px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checkbox {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.checkbox label {
+  order: 1;
+  text-transform: uppercase;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.checkbox input[type="checkbox"] {
+  appearance: none;
+}
+
+.checkbox .toggle-button {
+  --tb-height: 10px;
+  border-radius: calc(var(--tb-height) / 2);
+  width: 40px;
+  height: var(--tb-height);
+  background-color: skyblue;
+  position: relative;
+}
+
+.checkbox .toggle-button > div {
+  position: absolute;
+  top: calc(var(--tb-height) / -2);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(61, 185, 234);
+  transition: all 200ms;
+}
+
+.checkbox .toggle-button[data-checked="false"] > div {
+  left: 2px;
+}
+
+.checkbox .toggle-button[data-checked="true"] > div {
+  right: 2px;
+}

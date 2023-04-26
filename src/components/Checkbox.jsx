@@ -1,14 +1,17 @@
-const Checkbox = ({ label, index, value, handleChange }) => {
-  const id = "id" + index;
+import ToggleButton from "./ToggleButton";
+
+const Checkbox = ({ label, checked, handleChange }) => {
   return (
     <div className="checkbox">
-      <label htmlFor={id}>{label}</label>
+      <label htmlFor={label}>
+        <ToggleButton checked={checked} />
+        <span>{label}</span>
+      </label>
       <input
-        id={id}
+        id={label}
         type="checkbox"
-        checked={value} // OK, mais dans l'inspector montre value
-        // value={value} // NOPE
-        onChange={() => handleChange(index)}
+        checked={checked} // OK, mais dans l'inspector montre value
+        onChange={() => handleChange(label)}
       />
     </div>
   );

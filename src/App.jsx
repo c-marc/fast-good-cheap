@@ -4,43 +4,41 @@ import "./App.css";
 import Checkbox from "./components/Checkbox";
 
 function App() {
-  const [state, setState] = useState([false, false, false]);
+  const [state, setState] = useState({
+    fast: false,
+    good: false,
+    cheap: false,
+  });
 
-  const handleChange = (i) => {
-    const newState = [...state];
-    newState[i] = !newState[i];
+  const handleChange = (key) => {
+    const newState = { ...state, [key]: !state[key] };
 
-    if (newState.every((el) => el)) {
-      if (i === newState.length - 1) {
-        newState[0] = false;
-      } else {
-        newState[i + 1] = false;
-      }
+    // tricky one
+    // si tout est true
+    if (Object.values(newState).every((el) => el)) {
+      // select other keys
+      const otherKeys = Object.keys(newState).filter((k) => k !== key);
+      // console.log(otherKeys);
+      // randomly set one to false
+      const random = Math.floor(Math.random() * otherKeys.length);
+      newState[otherKeys[random]] = false;
     }
-    console.log(newState);
+    // console.log(newState);
     setState(newState);
   };
 
   return (
     <div className="app">
-      <Checkbox
-        label="Fast"
-        index={0}
-        value={state[0]}
-        handleChange={handleChange}
-      />
-      <Checkbox
-        label="Good"
-        index={1}
-        value={state[1]}
-        handleChange={handleChange}
-      />
-      <Checkbox
-        label="Cheap"
-        index={2}
-        value={state[2]}
-        handleChange={handleChange}
-      />
+      {Object.keys(state).map((s) => {
+        return (
+          <Checkbox
+            key={s}
+            label={s}
+            checked={state[s]}
+            handleChange={handleChange}
+          />
+        );
+      })}
     </div>
   );
 }
